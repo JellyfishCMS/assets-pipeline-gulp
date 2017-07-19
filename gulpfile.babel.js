@@ -7,10 +7,10 @@ import HubRegistry  from 'gulp-hub';
 import del          from 'del';
 import browserSync  from 'browser-sync';
 // configuration files
-const  paths        = require('./config.js');
+const  config        = require('./config.js');
 
-/* load some files into the registry */
-/* tell gulp to use the tasks just loaded */
+
+/* Tell gulp to load and use the task defined the tasks folder */
 gulp.registry(new HubRegistry(['./gulp-tasks/*.js']));
 
 /* Sub-Tasks

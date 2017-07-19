@@ -16,7 +16,8 @@ module.exports = {
   entry: {             // Where are the entry point files of your application?
     styles:  context + "src/styles/**/*.scss",
     scripts: context + "src/styles/**/*.js",
-    html:    context + "src/*.html"
+    html:    context + "src/*.html",
+    data:    context + "dataset/"
   },
 
   output: {            // Where do you want to generate output files?

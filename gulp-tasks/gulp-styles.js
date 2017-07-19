@@ -5,19 +5,22 @@ import concat       from 'gulp-concat';
 import rename       from 'gulp-rename';
 import debug        from 'gulp-debug';
 
-import paths        from '../paths.json';
+import config       from '../config.js';
 
-export function styles() {
+/**
+** GULP tasks dedicated to process styles files
+****************************/
+
+export function styles_sass() {
   return gulp.src(paths.styles.src)
     .pipe(debug())
-    .pipe(sass())
+    .pipe(sass())    // CSS preprocessor
     .pipe(cleanCSS())
-    // pass in options to the stream
     .pipe(rename({
       basename: 'main',
       suffix: '.min'
     }))
-    .pipe(gulp.dest(paths.styles.dest));
+    .pipe(gulp.dest(config.output.styles));
 }
 
-gulp.task('styles', styles);
+gulp.task('styles', styles_sass);
