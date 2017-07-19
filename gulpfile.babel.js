@@ -7,7 +7,7 @@ import HubRegistry  from 'gulp-hub';
 import del          from 'del';
 import browserSync  from 'browser-sync';
 // configuration files
-const  paths        = require('./paths.json');
+const  paths        = require('./config.js');
 
 /* load some files into the registry */
 /* tell gulp to use the tasks just loaded */
