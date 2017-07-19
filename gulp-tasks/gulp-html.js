@@ -1,18 +1,32 @@
 import gulp         from 'gulp';
 import debug        from 'gulp-debug';
+import path         from 'path'
 import inject       from 'gulp-inject';
+
+import nunjucks     from 'gulp-nunjucks'
+import data         from 'gulp-data';
+import fm           from 'front-matter';
 import bowerFiles   from 'main-bower-files';
 
-import paths        from '../paths.json';
+import config       from '../config.js';
+
+/**
+** GULP tasks dedicated to process html files
+****************************/
 
 /*
 * function dedicated to render throught a template engine
-* or simple copy and pastes source files
+* Inject the associated data based on the file name
 */
 export function htmlTempating(done) {
-  return gulp.src(paths.html.src)
+  return gulp.src(config.entry.html)
     .pipe(debug())
-    .pipe(gulp.dest(paths.html.dest));
+    .pipe(data(function(file) {
+      // Get data via JSON file, keyed on filename.
+      return require(config.entry.data + path.basename(file.path) + '.json');
+    }))
+    .pipe(nunjucks.compile())
+    .pipe(gulp.dest(config.output.html));
 }
 
 /*
@@ -23,11 +37,11 @@ export function htmlTempating(done) {
 */
 export function htmlInject() {
 
-  var sources = gulp.src([paths.styles.dest + "/**/*.css", paths.scripts.dest + "/**/*.js"], {read: false});
+  var sources = gulp.src([config.output.styles + "/**/*.css", config.output.scripts + "/**/*.js"], {read: false});
 
-  return gulp.src(paths.html.dest+"/**/*.html")
+  return gulp.src(config.output.html + "/**/*.html")
     .pipe(inject(sources, {relative: true}))
-    .pipe(gulp.dest(paths.html.dest));
+    .pipe(gulp.dest(config.output.html));
 }
 
 /*
@@ -42,9 +56,9 @@ export function bowerInject(){
     debug: true
   }), {read: false});
 
-  return gulp.src(paths.html.dest+"/**/*.html")
+  return gulp.src(config.output.html + "/**/*.html")
     .pipe(inject(sources, {name: 'bower', base: './bower_components'}))
-    .pipe(gulp.dest(paths.html.dest));
+    .pipe(gulp.dest(config.output.html));
 }
 
 gulp.task('htmlTempating', htmlTempating);
