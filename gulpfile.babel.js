@@ -1,21 +1,20 @@
+// configuration files
+const  config        = require('./config.js');
 // set the command directory at the root of the jellyfish project
-process.chdir('..');
+process.chdir(config.context);
 // key import
 import gulp         from 'gulp';
 import HubRegistry  from 'gulp-hub';
 // gulp plugins
 import del          from 'del';
 import browserSync  from 'browser-sync';
-// configuration files
-const  config        = require('./config.js');
-
 
 /* Tell gulp to load and use the task defined the tasks folder */
 gulp.registry(new HubRegistry(['./gulp-tasks/*.js']));
 
 /* Sub-Tasks
 =======================================================*/
-const clean = () => del([ 'dist' ]);
+const clean = () => del(config.output.folder);
 export { clean };
 
 /* Watcher

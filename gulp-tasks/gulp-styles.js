@@ -12,7 +12,7 @@ import config       from '../config.js';
 ****************************/
 
 export function styles_sass() {
-  return gulp.src(paths.styles.src)
+  return gulp.src(config.entry.styles)
     .pipe(debug())
     .pipe(sass())    // CSS preprocessor
     .pipe(cleanCSS())

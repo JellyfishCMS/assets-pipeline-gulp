@@ -1,6 +1,3 @@
-const context = './' // Where does your project is located?
-                     // (relatively to the assets-pipeline-gulp folder)
-
 module.exports = {
 
   /**
@@ -13,17 +10,23 @@ module.exports = {
   /**
   ** APPLIATION I/O
   ****************************/
+  context: '../../jellyfish-themes/jellyfish-tests-gulp/',
+                        // Where does your project is located?
+                        // (relatively to the assets-pipeline-gulp folder)
+
   entry: {             // Where are the entry point files of your application?
-    styles:  context + "src/styles/**/*.scss",
-    scripts: context + "src/styles/**/*.js",
-    html:    context + "src/*.html",
-    data:    context + "dataset/"
+    folder:  "src",
+    styles:  "src/css/**/*.scss",
+    scripts: "src/js/**/*.js",
+    html:    "src/*.html",
+    data:    "src/data/"
   },
 
   output: {            // Where do you want to generate output files?
-    styles:  context + "dist/assets/styles/",
-    scripts: context + "dist/assets/scripts/",
-    html:    context + "dist/"
+    folder:  "dist",
+    styles:  "dist/assets/styles/",
+    scripts: "dist/assets/scripts/",
+    html:    "dist/"
   }
 
   /**

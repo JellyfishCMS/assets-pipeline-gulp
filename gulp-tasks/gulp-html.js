@@ -23,7 +23,7 @@ export function htmlTempating(done) {
     .pipe(debug())
     .pipe(data(function(file) {
       // Get data via JSON file, keyed on filename.
-      return require(config.entry.data + path.basename(file.path) + '.json');
+      return require( '../' + config.context + config.entry.data + path.basename(file.path, '.html') + '.json');
     }))
     .pipe(nunjucks.compile())
     .pipe(gulp.dest(config.output.html));
