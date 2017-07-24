@@ -16,7 +16,7 @@ module.exports = {
 
   entry: {             // Where are the entry point files of your application?
     folder:  "src",
-    styles:  "src/css/**/*.scss",
+    styles:  "src/css/**/*.{scss,css}",
     scripts: "src/js/**/*.js",
     html:    "src/*.html",
     data:    "src/data/"

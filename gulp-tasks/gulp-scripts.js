@@ -10,7 +10,6 @@ import config       from '../config.js';
 ** GULP tasks dedicated to process scripts files
 ****************************/
 
-
 export function scripts_es6() {
   return gulp.src(config.entry.scripts, { sourcemaps: true })
     .pipe(debug())
