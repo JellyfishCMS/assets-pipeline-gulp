@@ -7,7 +7,6 @@ import gulp         from 'gulp';
 import HubRegistry  from 'gulp-hub';
 // gulp plugins
 import del          from 'del';
-import browserSync  from 'browser-sync';
 
 /* Tell gulp to load and use the task defined the tasks folder */
 gulp.registry(new HubRegistry(['./gulp-tasks/*.js']));
@@ -17,28 +16,24 @@ gulp.registry(new HubRegistry(['./gulp-tasks/*.js']));
 const clean = () => del(config.output.folder);
 export { clean };
 
+const html = gulp.series('htmlTempating','htmlInject');
+export { html };
+
 /* Watcher
 =======================================================*/
-export function runBrowserSync() {
-  browserSync.create();
-
-  browserSync.init({
-      server: {
-          baseDir: "./dist/"
-      }
-  });
-
-  gulp.watch(paths.scripts.src, gulp.series('scripts')).on('change', browserSync.reload);
-  gulp.watch(paths.styles.src, gulp.series('styles')).on('change', browserSync.reload);
-  gulp.watch(paths.html.src, gulp.series('html')).on('change', browserSync.reload);
+export function watch (done) {
+  gulp.watch(config.entry.scripts, gulp.series('scripts', 'reload'));
+  gulp.watch(config.entry.styles, gulp.series('styles', 'reload'));
+  gulp.watch(config.entry.html, gulp.series('html', 'reload'));
+  done()
 }
 
 /* Main tasks
 =======================================================*/
-const html = gulp.series('htmlTempating','htmlInject');
-export { html };
-
 const build = gulp.series(clean, gulp.parallel('styles', 'scripts'), 'html');
 export { build };
+
+const dev = gulp.series(clean, build, 'serve', watch);
+export { dev };
 
 export default build;
